@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" itemscope itemtype="http://schema.org/Person">
+<head>
+  <meta charset="utf-8">
+  <!-- Site Meta Data -->
+  <title>Kevin W. Potter - Rcpp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Kevin W. Potter">
+
+  <link rel="shortcut icon" href="">
+
+  <!-- schema.org -->
+  <meta itemprop="name" content="Kevin W. Potter">
+  <meta itemprop="image" content="Professional_picture.JPG">
+  <meta itemprop="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  <!-- Style Meta Data -->
+  <link rel="stylesheet" href="../theme/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../theme/css/pygments.css" type="text/css" />
+
+
+  <!-- Feed Meta Data -->
+
+  <!-- Twitter Feed -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:image" content="">
+
+<meta name="twitter:creator" content="">
+<meta name="twitter:url" content="../tag/rcpp.html">
+<meta name="twitter:title" content="Kevin W. Potter ~ Rcpp">
+<meta name="twitter:description" content="Articles de Rcpp">
+
+<!-- Facebook Meta Data -->
+<meta property="og:title" content="Kevin W. Potter ~ Rcpp" />
+<meta property="og:description" content="Articles de Rcpp" />
+<meta property="og:image" content="Professional_picture.JPG" />
+</head>
+
+<body>
+  <!-- Site navigation list -->
+    <nav>
+      <h1 id = "author"> <a href=".." id="home"> Kevin W. Potter </a> </h1>
+      <ul id = "nav_list" class="list-bare">
+          <li>
+            <a class="nav_link" href="../posts/"> Blog </a>
+          </li>
+            <li>
+              <a class="nav_link" href="../pages/presentations.html">Presentations</a>
+            </li>
+            <li>
+              <a class="nav_link" href="../pages/publications.html">Publications</a>
+            </li>
+      </ul>
+    </nav>
+
+  <!-- Content -->
+  <div id = "container">
+  <div class = "content">
+      <article>
+        <h1><a href="../posts/column-names-rcpp/" rel="bookmark" >Setting column names in Rcpp</a></h1>
+
+        <div class="entry-content">
+          <p>Rcpp provides an easy way to set the column names of a matrix.  </p>
+<div class="highlight"><pre><span></span><span class="kn">library</span><span class="p">(</span>Rcpp<span class="p">)</span>
+cppFunction<span class="p">(</span><span class="s">&#39;</span>
+<span class="s">  NumericMatrix matEx( ) {</span>
+<span class="s">    NumericMatrix mat(2,2);</span>
+<span class="s">    mat(0,0) = 1; mat(0,1) = 2;</span>
+<span class="s">    mat(1,0) = 3; mat(1,1) = 4;</span>
+
+<span class="s">    colnames(mat) = Rcpp::CharacterVector::create(&quot;A&quot;, &quot;B&quot;);</span>
+
+<span class="s">    return( mat );</span>
+<span class="s">  }</span>
+<span class="s">&#39;</span><span class="p">)</span>
+</pre></div>
+        </div>
+
+        <a href="../posts/column-names-rcpp/">Read more &#10132;</a>
+
+          <ul class="tags">
+              <li><a href="../tag/rcpp.html">Rcpp</a></li>
+              <li><a href="../tag/code.html">code</a></li>
+          </ul>
+      </article>
+      <article>
+        <h1><a href="../posts/console-printing-rcpp/" rel="bookmark" >Printing to the console in Rcpp</a></h1>
+
+        <div class="entry-content">
+          <p>Here's a simple example of how to print to the console window with a simple Rcpp function. This also provides an example of the versatile 'cppFunction'.  </p>
+<div class="highlight"><pre><span></span><span class="kn">library</span><span class="p">(</span>Rcpp<span class="p">)</span>
+cppFunction<span class="p">(</span><span class="s">&#39;</span>
+<span class="s">  void helloWorld( ) {</span>
+<span class="s">    Rcpp::Rcout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; std::endl;</span>
+<span class="s">  }</span>
+<span class="s">&#39;</span><span class="p">)</span>
+</pre></div>
+        </div>
+
+        <a href="../posts/console-printing-rcpp/">Read more &#10132;</a>
+
+          <ul class="tags">
+              <li><a href="../tag/rcpp.html">Rcpp</a></li>
+              <li><a href="../tag/code.html">code</a></li>
+          </ul>
+      </article>
+  </div>
+
+  <!-- Footer -->
+    <footer>
+      <p>
+        Powered by <a href="http://getpelican.com/">Pelican</a>,
+        which takes great advantage of <a href="http://python.org">Python</a>.<br>
+        Theme <a href="https://github.com/wjhopper/academia-red">academia</a> by <a href="http://hopperlab.com/">Will Hopper</a>.
+        Styled with the help of <a href="http://getskeleton.com/">Skeleton</a>
+      </p>
+    </footer>
+  </div>
+
+
+</body>
+</html>
