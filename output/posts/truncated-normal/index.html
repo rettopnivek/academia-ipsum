@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" itemscope itemtype="http://schema.org/Person">
+<head>
+  <meta charset="utf-8">
+  <!-- Site Meta Data -->
+  <title> Kevin W. Potter |  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Kevin W. Potter">
+
+  <link rel="shortcut icon" href="">
+
+  <!-- schema.org -->
+  <meta itemprop="name" content="Kevin W. Potter">
+  <meta itemprop="image" content="Professional_picture.JPG">
+  <meta itemprop="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  <!-- Style Meta Data -->
+  <link rel="stylesheet" href="../../theme/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../theme/css/pygments.css" type="text/css" />
+
+
+  <!-- Feed Meta Data -->
+
+  <!-- Twitter Feed -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:image" content="">
+
+<meta name="twitter:creator" content="">
+<meta name="twitter:url" content="../../posts/truncated-normal/">
+<meta name="twitter:title" content="Kevin W. Potter ~ Sampling from a truncated normal">
+<!-- <meta name="twitter:description" content="<p>A truncated normal distribution refers to a normal distribution that has been bounded between a pair of limits (a,b). In other words, no values less than a or greater than b can be observed. The typical method of sampling (the inverse probability transform) can be overly inefficient and under-sample from the tails, so several more effective algorithms have been developed.</p>
+<p>This post is not about that.</p>
+<p>I needed to draw random samples from a truncated normal in order to carry out some predictive checks for a statistcal model. Due ...</p>"> -->
+
+<!-- Facebook Meta Data -->
+<meta property="og:title" content="Kevin W. Potter ~ Sampling from a truncated normal" />
+<!-- <meta property="og:description" content="<p>A truncated normal distribution refers to a normal distribution that has been bounded between a pair of limits (a,b). In other words, no values less than a or greater than b can be observed. The typical method of sampling (the inverse probability transform) can be overly inefficient and under-sample from the tails, so several more effective algorithms have been developed.</p>
+<p>This post is not about that.</p>
+<p>I needed to draw random samples from a truncated normal in order to carry out some predictive checks for a statistcal model. Due ...</p>" /> -->
+<meta property="og:image" content="" />
+</head>
+
+<body>
+  <!-- Site navigation list -->
+    <nav>
+      <h1 id = "author"> <a href="../.." id="home"> Kevin W. Potter </a> </h1>
+      <ul id = "nav_list" class="list-bare">
+          <li>
+            <a class="nav_link" href="../../posts/"> Blog </a>
+          </li>
+            <li>
+              <a class="nav_link" href="../../pages/presentations.html">Presentations</a>
+            </li>
+            <li>
+              <a class="nav_link" href="../../pages/publications.html">Publications</a>
+            </li>
+      </ul>
+    </nav>
+
+  <!-- Content -->
+  <div id = "container">
+  <div class = "content">
+
+    <div class="all-posts">
+      <a href="../../posts/">&#11013; View all posts</a>
+    </div>
+
+    <article>
+        <h2 class="post_title post_detail"><a href="../../posts/truncated-normal/" rel="bookmark">Sampling from a truncated normal</a></h2>
+        <div class="entry-content blog-post">
+            <p>A truncated normal distribution refers to a normal distribution that has been bounded between a pair of limits (a,b). In other words, no values less than a or greater than b can be observed. The typical method of sampling (the inverse probability transform) can be overly inefficient and under-sample from the tails, so several more effective algorithms have been developed.</p>
+<p>This post is not about that.</p>
+<p>I needed to draw random samples from a truncated normal in order to carry out some predictive checks for a statistcal model. Due to time constraints and the limitations of my coding skills, I needed an extremely easy implementation, not an efficient or optimally effective one. My question, therefore, was whether I could get away with a resampling technique - drawing samples from the untruncated normal distribution and simply redrawing samples that exceed the limits. I am sure this could be determined either via a literature search or some mathematical exploration, but again, because of time and the limits of my abilities, I wanted an easier approach.</p>
+<p>I therefore wrote a quick script in R checking whether the resampling technique would conform to the true truncated density. I was only interested in how this would work for the limits (-1,1). So in reality, this is a post on using simulations to check assumptions under a very specific context. First, I define a set of parameters for the normal distribution.</p>
+<div class="highlight"><pre><span></span><span class="c1"># First, we set the mean and standard deviation the normal distribution.</span>
+prm <span class="o">=</span> <span class="kt">c</span><span class="p">(</span> <span class="m">0.25</span><span class="p">,</span> <span class="m">0.75</span> <span class="p">)</span>
+</pre></div>
+
+
+<p>The following plot nicely demonstrates how truncating a normal distribution (any distribution, in fact) redistributes the probability mass.</p>
+<p><img alt="Alt Text" src="../../img/Truncated_normal_dist.png" /></p>
+<p>Next, we'll sample 10,000 observations from a normal distribution, and match this number of observations using the resampling technique for the truncated normal:</p>
+<div class="highlight"><pre><span></span><span class="c1"># As a sanity check for the resampling technique:</span>
+N <span class="o">=</span> <span class="m">10000</span> <span class="c1"># Number of samples for Monte Carlo integration</span>
+orig <span class="o">=</span> rnorm<span class="p">(</span> N<span class="p">,</span> prm<span class="p">[</span><span class="m">1</span><span class="p">],</span> prm<span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">)</span>
+<span class="c1"># Resample until all draws lie within the truncation</span>
+trunc <span class="o">=</span> rnorm<span class="p">(</span> N<span class="p">,</span> prm<span class="p">[</span><span class="m">1</span><span class="p">],</span> prm<span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">)</span>
+<span class="kr">while</span><span class="p">(</span> <span class="kp">sum</span><span class="p">(</span> trunc <span class="o">&gt;</span> <span class="m">1</span> <span class="o">|</span> trunc <span class="o">&lt;</span> <span class="m">-1</span> <span class="p">)</span> <span class="o">&gt;</span> <span class="m">0</span> <span class="p">)</span> <span class="p">{</span>
+  sel <span class="o">=</span> trunc <span class="o">&gt;</span> <span class="m">1</span> <span class="o">|</span> trunc <span class="o">&lt;</span> <span class="m">-1</span>
+  <span class="kp">trunc</span><span class="p">[</span>sel<span class="p">]</span> <span class="o">=</span> rnorm<span class="p">(</span> <span class="kp">sum</span><span class="p">(</span>sel<span class="p">),</span>prm<span class="p">[</span><span class="m">1</span><span class="p">],</span>prm<span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Plotting the results, we see that the estimated density for the original normal distribution is quite smooth. The estimated density for the truncated normal is noisier, but the estimate does correspond to the true density shown in red. Phew!</p>
+<p><img alt="Alt Text" src="../../img/Resampling_truncated_normal.png" /></p>
+<p>Here's the code to generate the plot:</p>
+<div class="highlight"><pre><span></span>    <span class="c1"># Histograms of the normal and truncated normal draws</span>
+    e1 <span class="o">=</span> hist<span class="p">(</span> orig<span class="p">,</span>  breaks <span class="o">=</span> <span class="m">40</span><span class="p">,</span> plot <span class="o">=</span> <span class="bp">F</span> <span class="p">)</span>
+    e2 <span class="o">=</span> hist<span class="p">(</span> <span class="kp">trunc</span><span class="p">,</span> breaks <span class="o">=</span> <span class="m">40</span><span class="p">,</span> plot <span class="o">=</span> <span class="bp">F</span> <span class="p">)</span>
+
+    <span class="c1"># x11()</span>
+
+    <span class="c1"># Determine the height of the plot</span>
+    yl <span class="o">=</span> lowerUpper<span class="p">(</span><span class="m">.25</span><span class="p">,</span><span class="kt">c</span><span class="p">(</span>e1<span class="o">$</span>density<span class="p">,</span>e2<span class="o">$</span>density<span class="p">))</span>
+
+    plot<span class="p">(</span> <span class="kt">c</span><span class="p">(</span><span class="m">-4</span><span class="p">,</span><span class="m">4</span><span class="p">),</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span>yl<span class="p">[</span><span class="m">2</span><span class="p">]),</span> type <span class="o">=</span> <span class="s">&#39;n&#39;</span><span class="p">,</span> bty <span class="o">=</span> <span class="s">&#39;l&#39;</span><span class="p">,</span> 
+                xlab <span class="o">=</span> <span class="s">&#39;z-scores&#39;</span><span class="p">,</span> ylab <span class="o">=</span> <span class="s">&#39;Density&#39;</span><span class="p">,</span> cex.axis <span class="o">=</span> <span class="m">1.5</span><span class="p">,</span>
+                cex.lab <span class="o">=</span> <span class="m">1.5</span> <span class="p">)</span>
+
+    <span class="c1"># Untruncated</span>
+    polygon<span class="p">(</span> <span class="kt">c</span><span class="p">(</span> <span class="kp">min</span><span class="p">(</span>e1<span class="o">$</span>mids<span class="p">),</span> e1<span class="o">$</span>mids<span class="p">,</span> <span class="kp">max</span><span class="p">(</span>e1<span class="o">$</span>mids<span class="p">)</span> <span class="p">),</span>
+                     <span class="kt">c</span><span class="p">(</span> <span class="m">0</span><span class="p">,</span> e1<span class="o">$</span>density<span class="p">,</span> <span class="m">0</span> <span class="p">),</span>
+                     border <span class="o">=</span> <span class="kc">NA</span><span class="p">,</span> col <span class="o">=</span> rgb<span class="p">(</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">.5</span> <span class="p">)</span> <span class="p">)</span>
+
+    <span class="c1"># Truncated</span>
+    polygon<span class="p">(</span> <span class="kt">c</span><span class="p">(</span> <span class="kp">min</span><span class="p">(</span>e2<span class="o">$</span>mids<span class="p">),</span> e2<span class="o">$</span>mids<span class="p">,</span> <span class="kp">max</span><span class="p">(</span>e2<span class="o">$</span>mids<span class="p">)</span> <span class="p">),</span>
+                     <span class="kt">c</span><span class="p">(</span> <span class="m">0</span><span class="p">,</span> e2<span class="o">$</span>density<span class="p">,</span> <span class="m">0</span> <span class="p">),</span>
+                     border <span class="o">=</span> <span class="kc">NA</span><span class="p">,</span> col <span class="o">=</span> rgb<span class="p">(</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">.5</span> <span class="p">)</span> <span class="p">)</span>
+
+    <span class="c1"># True densities</span>
+    lines<span class="p">(</span> orig_x<span class="p">,</span> d<span class="p">,</span> lwd <span class="o">=</span> <span class="m">2</span> <span class="p">)</span>
+    lines<span class="p">(</span> trunc_x<span class="p">,</span> dt<span class="p">,</span> col <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> lwd <span class="o">=</span> <span class="m">2</span> <span class="p">)</span>
+
+    <span class="c1"># Legend</span>
+    legend<span class="p">(</span> <span class="s">&#39;topleft&#39;</span><span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;Not truncated&#39;</span><span class="p">,</span><span class="s">&#39;Truncated&#39;</span><span class="p">),</span> 
+                    fill <span class="o">=</span> <span class="kt">c</span><span class="p">(</span> rgb<span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">.5</span><span class="p">),</span> rgb<span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">.5</span><span class="p">)</span> <span class="p">),</span> 
+                    bty <span class="o">=</span> <span class="s">&#39;n&#39;</span><span class="p">,</span> cex <span class="o">=</span> <span class="m">1.5</span> <span class="p">)</span>
+    legend<span class="p">(</span> <span class="s">&#39;topright&#39;</span><span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;N = 10,000&#39;</span><span class="p">),</span> bty <span class="o">=</span> <span class="s">&#39;n&#39;</span><span class="p">,</span> cex <span class="o">=</span> <span class="m">1.5</span> <span class="p">)</span>
+</pre></div>
+        </div>
+
+          <ul class="tags">
+              <li><a href="../../tag/statistics.html">Statistics</a></li>
+              <li><a href="../../tag/code.html">code</a></li>
+          </ul>
+
+        <div class="all-posts">
+          <a href="../../posts/">&#11013; View all posts</a>
+        </div>
+
+        
+    </article>
+  </div>
+
+  <!-- Footer -->
+    <footer>
+      <p>
+        Powered by <a href="http://getpelican.com/">Pelican</a>,
+        which takes great advantage of <a href="http://python.org">Python</a>.<br>
+        Theme <a href="https://github.com/wjhopper/academia-red">academia</a> by <a href="http://hopperlab.com/">Will Hopper</a>.
+        Styled with the help of <a href="http://getskeleton.com/">Skeleton</a>
+      </p>
+    </footer>
+  </div>
+
+
+</body>
+</html>

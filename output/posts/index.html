@@ -50,6 +50,54 @@
   <div id = "container">
   <div class = "content">
       <article>
+        <h1><a href="../posts/color-options/" rel="bookmark" >R color options</a></h1>
+
+        <div class="entry-content">
+          <p>Here's a chart of the color options in 'colors()':</p>
+<p><img alt="Alt Text" src="../img/R_color_options.png" /></p>
+        </div>
+
+        <a href="../posts/color-options/">Read more &#10132;</a>
+
+          <ul class="tags">
+              <li><a href="../tag/r.html">R</a></li>
+              <li><a href="../tag/plotting.html">plotting</a></li>
+              <li><a href="../tag/code.html">code</a></li>
+          </ul>
+      </article>
+      <article>
+        <h1><a href="../posts/truncated-normal/" rel="bookmark" >Sampling from a truncated normal</a></h1>
+
+        <div class="entry-content">
+          <p>A truncated normal distribution refers to a normal distribution that has been bounded between a pair of limits (a,b). In other words, no values less than a or greater than b can be observed. The typical method of sampling (the inverse probability transform) can be overly inefficient and under-sample from the tails, so several more effective algorithms have been developed.</p>
+<p>This post is not about that.</p>
+<p>I needed to draw random samples from a truncated normal in order to carry out some predictive checks for a statistcal model. Due ...</p>
+        </div>
+
+        <a href="../posts/truncated-normal/">Read more &#10132;</a>
+
+          <ul class="tags">
+              <li><a href="../tag/statistics.html">Statistics</a></li>
+              <li><a href="../tag/code.html">code</a></li>
+          </ul>
+      </article>
+      <article>
+        <h1><a href="../posts/pch-options/" rel="bookmark" >Options for pch</a></h1>
+
+        <div class="entry-content">
+          <p>Here's an example of the R plot pch symbols chart:</p>
+<p><img alt="Alt Text" src="../img/R_pch_options.jpg" /></p>
+        </div>
+
+        <a href="../posts/pch-options/">Read more &#10132;</a>
+
+          <ul class="tags">
+              <li><a href="../tag/r.html">R</a></li>
+              <li><a href="../tag/plotting.html">plotting</a></li>
+              <li><a href="../tag/code.html">code</a></li>
+          </ul>
+      </article>
+      <article>
         <h1><a href="../posts/clearing-the-workspace/" rel="bookmark" >Clearing the workspace in R</a></h1>
 
         <div class="entry-content">
@@ -90,54 +138,6 @@ cppFunction<span class="p">(</span><span class="s">&#39;</span>
 
           <ul class="tags">
               <li><a href="../tag/rcpp.html">Rcpp</a></li>
-              <li><a href="../tag/code.html">code</a></li>
-          </ul>
-      </article>
-      <article>
-        <h1><a href="../posts/console-printing-rcpp/" rel="bookmark" >Printing to the console in Rcpp</a></h1>
-
-        <div class="entry-content">
-          <p>Here's a simple example of how to print to the console window with a simple Rcpp function. This also provides an example of the versatile 'cppFunction'.  </p>
-<div class="highlight"><pre><span></span><span class="kn">library</span><span class="p">(</span>Rcpp<span class="p">)</span>
-cppFunction<span class="p">(</span><span class="s">&#39;</span>
-<span class="s">  void helloWorld( ) {</span>
-<span class="s">    Rcpp::Rcout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; std::endl;</span>
-<span class="s">  }</span>
-<span class="s">&#39;</span><span class="p">)</span>
-</pre></div>
-        </div>
-
-        <a href="../posts/console-printing-rcpp/">Read more &#10132;</a>
-
-          <ul class="tags">
-              <li><a href="../tag/rcpp.html">Rcpp</a></li>
-              <li><a href="../tag/code.html">code</a></li>
-          </ul>
-      </article>
-      <article>
-        <h1><a href="../posts/progress-bar/" rel="bookmark" >Progress bar in R</a></h1>
-
-        <div class="entry-content">
-          <p>Here is an example of creating a simple text progress bar in R to track the progress of a loop:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># Set the maximum number of iterations</span>
-total <span class="o">=</span> <span class="m">10</span>
-<span class="c1"># Create a progress bar using a base R function</span>
-pb <span class="o">=</span> txtProgressBar<span class="p">(</span> min <span class="o">=</span> <span class="m">0</span><span class="p">,</span> max <span class="o">=</span> total<span class="p">,</span> style <span class="o">=</span> <span class="m">3</span> <span class="p">)</span>
-<span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>total<span class="p">)</span> <span class="p">{</span>
-    <span class="c1"># Update the progress bar</span>
-    setTxtProgressBar<span class="p">(</span>pb<span class="p">,</span>i<span class="p">)</span>
-<span class="p">}</span>
-<span class="kp">close</span><span class="p">(</span>pb<span class="p">)</span>
-</pre></div>
-
-
-<p>The third style is nice because it also shows the percentage and indicates both the start and end of the progress bar.</p>
-        </div>
-
-        <a href="../posts/progress-bar/">Read more &#10132;</a>
-
-          <ul class="tags">
-              <li><a href="../tag/r.html">R</a></li>
               <li><a href="../tag/code.html">code</a></li>
           </ul>
       </article>
