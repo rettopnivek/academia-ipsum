@@ -50,6 +50,33 @@
   <div id = "container">
   <div class = "content">
       <article>
+        <h1><a href="../posts/column-names-rcpp/" rel="bookmark" >Setting column names in Rcpp</a></h1>
+
+        <div class="entry-content">
+          <p>Rcpp provides an easy way to set the column names of a matrix.  </p>
+<div class="highlight"><pre><span></span><span class="kn">library</span><span class="p">(</span>Rcpp<span class="p">)</span>
+cppFunction<span class="p">(</span><span class="s">&#39;</span>
+<span class="s">  NumericMatrix matEx( ) {</span>
+<span class="s">    NumericMatrix mat(2,2);</span>
+<span class="s">    mat(0,0) = 1; mat(0,1) = 2;</span>
+<span class="s">    mat(1,0) = 3; mat(1,1) = 4;</span>
+
+<span class="s">    colnames(mat) = Rcpp::CharacterVector::create(&quot;A&quot;, &quot;B&quot;);</span>
+
+<span class="s">    return( mat );</span>
+<span class="s">  }</span>
+<span class="s">&#39;</span><span class="p">)</span>
+</pre></div>
+        </div>
+
+        <a href="../posts/column-names-rcpp/">Read more &#10132;</a>
+
+          <ul class="tags">
+              <li><a href="../tag/rcpp.html">Rcpp</a></li>
+              <li><a href="../tag/code.html">code</a></li>
+          </ul>
+      </article>
+      <article>
         <h1><a href="../posts/console-printing-rcpp/" rel="bookmark" >Printing to the console in Rcpp</a></h1>
 
         <div class="entry-content">
