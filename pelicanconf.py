@@ -45,3 +45,7 @@ CATEGORY_SAVE_AS = False
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
+
+# Plugins
+PLUGIN_PATH = 'C:/Users/Kevin/Documents/Github_files/pelican-plugins'
+PLUGINS = ['neighbors','render_math']
