@@ -10,4 +10,4 @@ However, when studying cognition and the brain, even a very simple choice, such 
 
 As a [quantitative psychologist](http://www.apa.org/research/tools/quantitative/), my research primarily focuses on building and applying mathematical models that can describe these simple choices and response times. I am also interested in making these models easier for psychologists in other fields to apply to their own work.
 
-[Test](archives.html)
+Here is a [link](archives.html) to all previous blog posts.
